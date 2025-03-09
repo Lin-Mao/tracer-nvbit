@@ -1,5 +1,4 @@
-/* Author1: Mahmoud Khairy, abdallm@purdue.com - 2019 */
-/* Author2: Jason Shen, shen203@purdue.edu - 2019 */
+#include "tracer_tool.h"
 
 #include <assert.h>
 #include <inttypes.h>
@@ -56,6 +55,8 @@ int active_from_start = 1;
 int lineinfo = 0;
 /* used to select region of interest when active from start is 0 */
 bool active_region = true;
+
+bool enable_tracing = true;
 
 
 /* Should we terminate the program once we are done tracing? */
@@ -297,6 +298,10 @@ unsigned old_total_reported_insts = 0;
 
 void nvbit_at_cuda_event(CUcontext ctx, int is_exit, nvbit_api_cuda_t cbid,
                          const char *name, void *params, CUresult *pStatus) {
+
+  if (!enable_tracing)
+    return;
+
   if (skip_flag)
     return;
 
@@ -754,4 +759,20 @@ void nvbit_at_ctx_term(CUcontext ctx) {
     recv_thread_started = false;
     pthread_join(recv_thread, NULL);
   }
+}
+
+extern void tracer_init() {
+  enable_tracing = false;
+}
+
+extern void tracer_start() {
+  printf("start tracing\n");
+  fflush(stdout);
+  enable_tracing = true;
+}
+
+extern void tracer_stop() {
+  printf("stop tracing\n");
+  fflush(stdout);
+  enable_tracing = false;
 }

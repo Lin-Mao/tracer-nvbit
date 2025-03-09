@@ -2,3 +2,7 @@ nvbit_release
 traces
 *.so
 *.o
+
+build/
+dist/
+*.egg-info/

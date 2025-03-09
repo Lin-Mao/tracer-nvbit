@@ -44,6 +44,7 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 NVBIT_TOOL=$(current_dir).so
 
 all: $(NVBIT_TOOL)
+	ln -sf $(NVBIT_TOOL) lib$(NVBIT_TOOL)
 
 $(NVBIT_TOOL): $(OBJECTS) $(NVBIT_PATH)/libnvbit.a
 	$(NVCC) -arch=$(ARCH) -O3 $(OBJECTS) $(LIBS) $(NVCC_PATH) -lcuda -lcudart_static -shared -o $@
