@@ -6,6 +6,7 @@ Layer-wise tracing tool for accel-sim.
 
 ```shell
 cd tracer-nvbit
+./install_nvbit.sh
 make
 
 # in conda env
