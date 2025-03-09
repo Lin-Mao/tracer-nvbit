@@ -5,6 +5,8 @@ Layer-wise tracing tool for accel-sim.
 # Installation
 
 ```shell
+git clone --recursive https://github.com/Lin-Mao/tracer-nvbit.git
+
 cd tracer-nvbit
 ./install_nvbit.sh
 make
